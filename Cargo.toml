@@ -1,0 +1,13 @@
+[package]
+name = "sea_orm_migration_ex"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sea_orm_migration_ex_macros = { path = "./macros" }
+
+[dev-dependencies]
+sea-orm-migration = { version = "0.9.1" }
+
+[workspace]
+members = ["core", "macros"]
