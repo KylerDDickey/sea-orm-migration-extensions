@@ -7,7 +7,7 @@ use syn::{Ident, Lit};
 #[cfg_attr(test, derive(Debug, PartialEq))]
 #[derive(FromVariant)]
 #[darling(attributes(col))]
-pub struct ColumnDefStmts {
+pub struct ColumnDefExpression {
     #[darling(default)]
     pub auto_increment: bool,
     pub data_type: DataType,
@@ -21,7 +21,7 @@ pub struct ColumnDefStmts {
     pub unique: bool,
 }
 
-impl ToTokens for ColumnDefStmts {
+impl ToTokens for ColumnDefExpression {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         let data_type = match &self.data_type {
             DataType::Integer(i) => codegen::integer_type_tokens(&i.len),

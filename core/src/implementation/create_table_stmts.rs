@@ -1,6 +1,6 @@
 use crate::attributes::{Create, TableStatementType};
 use crate::codegen;
-use crate::implementation::ColumnDefStmts;
+use crate::implementation::ColumnDefExpression;
 use crate::resource::{ErrorResource, Tokens};
 use darling::{Error, FromDeriveInput, FromVariant, Result, ToTokens};
 use darling::ast::Data;
@@ -54,8 +54,8 @@ impl MigrationStatement {
         let col_stmts = variants
             .into_iter()
             .filter_map(|v| {
-                match ColumnDefStmts::from_variant(&v) {
-                    Ok(col_stmts) => Some(ColumnDefStmts::into_token_stream(col_stmts)),
+                match ColumnDefExpression::from_variant(&v) {
+                    Ok(col_stmts) => Some(ColumnDefExpression::into_token_stream(col_stmts)),
                     Err(err) => {
                         err_acc.push(err);
                         None

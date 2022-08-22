@@ -1,5 +1,5 @@
-mod column_def_stmts;
+mod common;
 mod create_table_stmts;
 
-pub use column_def_stmts::ColumnDefStmts;
+use common::ColumnDefExpression;
 pub use create_table_stmts::MigrationStatement;
