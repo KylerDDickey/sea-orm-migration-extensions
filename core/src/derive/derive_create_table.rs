@@ -1,6 +1,6 @@
-use crate::codegen::CreateTableStmts;
+use crate::implementation::MigrationStatement;
 use crate::emitters::Derive;
 
-pub struct DeriveMigrationTrait;
+pub struct DeriveMigrationStatementsTrait;
 
-impl Derive<CreateTableStmts> for DeriveMigrationTrait { }
+impl Derive<MigrationStatement> for DeriveMigrationStatementsTrait { }

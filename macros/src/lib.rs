@@ -1,8 +1,10 @@
 use proc_macro::TokenStream;
-use sea_orm_migration_ex_core::{Derive, DeriveMigrationTrait};
+use sea_orm_migration_ex_core::{Derive, DeriveMigrationStatementsTrait};
 use syn::parse_macro_input;
 
-#[proc_macro_derive(DeriveMigrationTrait, attributes(create_table, col))]
-pub fn derive_migration_trait(item: TokenStream) -> TokenStream {
-    DeriveMigrationTrait::derive(&parse_macro_input!(item)).into()
+#[proc_macro_derive(
+    DeriveMigrationStatementsTrait,
+    attributes(schema_migration, col))]
+pub fn derive_migration_statements_trait(item: TokenStream) -> TokenStream {
+    DeriveMigrationStatementsTrait::derive(&parse_macro_input!(item)).into()
 }

@@ -2,8 +2,8 @@ mod integer;
 mod string;
 
 use darling::FromMeta;
-use integer::Integer;
-use string::String;
+pub use integer::Integer;
+pub use string::String;
 
 #[cfg_attr(test, derive(Debug, PartialEq))]
 #[derive(FromMeta)]
