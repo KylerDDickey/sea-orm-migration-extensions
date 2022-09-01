@@ -1,12 +1,11 @@
 #![allow(dead_code)]
 
 use sea_orm_migration_ex::{
-    DeriveMigrationStatementsTrait,
-    MigrationStatementsTrait,
+    MigrationStatementTrait,
 };
 use sea_orm_migration::prelude::*;
 
-#[derive(DeriveMigrationStatementsTrait, Iden)]
+#[derive(MigrationStatementTrait, Iden)]
 #[schema_migration(table(create(if_not_exists)))]
 enum Post {
     Table,

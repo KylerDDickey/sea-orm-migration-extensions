@@ -1,14 +1,15 @@
 [package]
-name = "sea_orm_migration_ex"
+name = "sea-orm-migration-ex"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-sea_orm_migration_ex_core = { path = "./core" }
-sea_orm_migration_ex_macros = { path = "./macros" }
+sea-orm-migration-ex-core = { path = "./core" }
+sea-orm-migration-ex-macro-core = { path = "./macro_core" }
+sea-orm-migration-ex-macro = { path = "./macro" }
 
 [dev-dependencies]
 sea-orm-migration = { version = "0.9.1" }
 
 [workspace]
-members = ["core", "macros"]
+members = ["core", "macro"]

@@ -1,3 +1,3 @@
-mod migration_statements_trait;
+mod migration_statement_trait;
 
-pub use migration_statements_trait::MigrationStatementsTrait;
+pub use migration_statement_trait::MigrationStatementTrait;
