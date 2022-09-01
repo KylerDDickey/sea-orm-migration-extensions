@@ -12,4 +12,4 @@ sea-orm-migration-ex-macro = { path = "./macro" }
 sea-orm-migration = { version = "0.9.1" }
 
 [workspace]
-members = ["core", "macro"]
+members = ["core", "macro", "macro_core"]
