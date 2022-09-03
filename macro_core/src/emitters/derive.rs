@@ -1,5 +1,5 @@
 use crate::emitters::common::emit_derive;
-use crate::implementation::TableMigrationStatement;
+use crate::metadata::TableMigrationStatement;
 use proc_macro2::TokenStream;
 use syn::DeriveInput;
 

@@ -1,5 +1,5 @@
-mod common;
+mod column_def_expression;
 mod table_migration_statement;
 
-use common::ColumnDefExpression;
+pub use column_def_expression::ColumnDefExpression;
 pub use table_migration_statement::TableMigrationStatement;

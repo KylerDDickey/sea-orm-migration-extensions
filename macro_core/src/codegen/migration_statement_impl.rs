@@ -24,7 +24,7 @@ pub fn impl_create_table_migration_statement_tokens(ident: &Ident, options: &Vec
             #(#options)*
             #(.col(#col_stmts))*
             .to_owned();
-    
+
         manager
             .create_table(table)
             .await
@@ -34,7 +34,7 @@ pub fn impl_create_table_migration_statement_tokens(ident: &Ident, options: &Vec
         let table = Table::drop()
             .table(Self::Table)
             .to_owned();
-    
+
         manager
             .drop_table(table)
             .await

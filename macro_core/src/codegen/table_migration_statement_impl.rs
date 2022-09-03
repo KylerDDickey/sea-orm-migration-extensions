@@ -1,23 +1,11 @@
 use crate::attributes::{Create, TableStatementType};
 use crate::codegen;
-use crate::implementation::ColumnDefExpression;
+use crate::metadata::{ColumnDefExpression, TableMigrationStatement};
 use crate::resource::{ErrorResource, Tokens};
-use darling::{Error, FromDeriveInput, FromVariant, Result, ToTokens};
-use darling::ast::Data;
+use darling::{Error, FromVariant, Result, ToTokens};
 use darling::error::Accumulator;
-use darling::util::Ignored;
 use proc_macro2::TokenStream;
-use syn::{Ident, Variant};
-
-#[cfg_attr(test, derive(Debug, PartialEq))]
-#[derive(FromDeriveInput)]
-#[darling(attributes(schema_migration), supports(enum_any))]
-pub struct TableMigrationStatement {
-    pub data: Data<Variant, Ignored>,
-    pub ident: Ident,
-    #[darling(rename = "table")]
-    pub table_statement_type: TableStatementType,
-}
+use syn::Variant;
 
 impl TableMigrationStatement {
     fn handle_create_stmt(&self, create: &Create, variants: &Vec<Variant>, err_acc: &mut Accumulator) -> TokenStream {
@@ -86,7 +74,7 @@ impl ToTokens for TableMigrationStatement {
 #[cfg(test)]
 mod tests {
     use crate::attributes::{Create, TableStatementType};
-    use crate::implementation::TableMigrationStatement;
+    use crate::metadata::TableMigrationStatement;
     use darling::{FromDeriveInput, ToTokens};
     use darling::ast::Data;
     use proc_macro2::Span;
