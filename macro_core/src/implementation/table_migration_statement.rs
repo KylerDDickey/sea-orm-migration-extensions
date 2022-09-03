@@ -12,14 +12,14 @@ use syn::{Ident, Variant};
 #[cfg_attr(test, derive(Debug, PartialEq))]
 #[derive(FromDeriveInput)]
 #[darling(attributes(schema_migration), supports(enum_any))]
-pub struct MigrationStatement {
+pub struct TableMigrationStatement {
     pub data: Data<Variant, Ignored>,
     pub ident: Ident,
     #[darling(rename = "table")]
     pub table_statement_type: TableStatementType,
 }
 
-impl MigrationStatement {
+impl TableMigrationStatement {
     fn handle_create_stmt(&self, create: &Create, variants: &Vec<Variant>, err_acc: &mut Accumulator) -> TokenStream {
         let options = vec![
             codegen::if_not_exists_method_call_tokens(create.if_not_exists),
@@ -68,7 +68,7 @@ impl MigrationStatement {
     }
 }
 
-impl ToTokens for MigrationStatement {
+impl ToTokens for TableMigrationStatement {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         let mut err_acc = Error::accumulator();
 
@@ -86,7 +86,7 @@ impl ToTokens for MigrationStatement {
 #[cfg(test)]
 mod tests {
     use crate::attributes::{Create, TableStatementType};
-    use crate::implementation::MigrationStatement;
+    use crate::implementation::TableMigrationStatement;
     use darling::{FromDeriveInput, ToTokens};
     use darling::ast::Data;
     use proc_macro2::Span;
@@ -95,7 +95,7 @@ mod tests {
     use syn::{DeriveInput, Fields, Ident, Variant};
 
     fn generate_migr_code_wrapper(ident_name: &str, if_not_exists: bool) -> TokenStream {
-        let create_table = MigrationStatement {
+        let create_table = TableMigrationStatement {
             data: Data::Enum(vec![
                 Variant {
                     ident: Ident::new("Table", Span::call_site()),
@@ -115,7 +115,7 @@ mod tests {
 
     #[test]
     fn table_migration_valid_parse_target() {
-        let target_table_migr = MigrationStatement {
+        let target_table_migr = TableMigrationStatement {
             data: Data::Enum(vec![
                 Variant {
                     ident: Ident::new("Table", Span::call_site()),
@@ -138,14 +138,14 @@ mod tests {
         });
 
         let test_table_migr_item_enum = test_mock_parsed_item.unwrap();
-        let test_table_migr = MigrationStatement::from_derive_input(&test_table_migr_item_enum);
+        let test_table_migr = TableMigrationStatement::from_derive_input(&test_table_migr_item_enum);
 
         assert_eq!(target_table_migr, test_table_migr.unwrap());
     }
 
     #[test]
     fn table_migration_valid_parse_target_ine() {
-        let target_table_migr = MigrationStatement {
+        let target_table_migr = TableMigrationStatement {
             data: Data::Enum(vec![
                 Variant {
                     ident: Ident::new("Table", Span::call_site()),
@@ -168,7 +168,7 @@ mod tests {
         });
 
         let test_table_migr_item_enum = test_mock_parsed_item.unwrap();
-        let test_table_migr = MigrationStatement::from_derive_input(&test_table_migr_item_enum);
+        let test_table_migr = TableMigrationStatement::from_derive_input(&test_table_migr_item_enum);
 
         assert_eq!(target_table_migr, test_table_migr.unwrap());
     }
